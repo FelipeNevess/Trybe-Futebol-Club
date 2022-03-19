@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 class AuthenticateService {
-  execute = async ({ email, password }: IRequest) => {
+  static async execute({ email, password }: IRequest) {
     ValidateInfosSession.validation({ email, password });
 
     const user = await SessionsRepository.findByEmail(email);
@@ -44,4 +44,4 @@ class AuthenticateService {
   }
 }
 
-export default new AuthenticateService();
+export default AuthenticateService;

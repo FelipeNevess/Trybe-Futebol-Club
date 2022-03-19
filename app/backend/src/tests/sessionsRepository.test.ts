@@ -71,7 +71,7 @@ describe('Sessions Repositories', () => {
       sinon.stub(SessionsRepository, "create").resolves();
     });
     
-    afterEach( async () => {
+    after( async () => {
       (SessionsRepository.create as sinon.SinonStub).restore();
     });
 

@@ -5,22 +5,12 @@ class AuthenticateController {
   static async handle(req: Request, res: Response) {
     const { email, password } = req.body;
 
-    const { user, token } = await AuthenticateService.execute({
+    const result = await AuthenticateService.execute({
       email,
       password,
     });
 
-    const newUser = {
-      user: {
-        id: user.id,
-        username: user.username,
-        role: user.role,
-        email: user.email,
-      },
-      token,
-    };
-
-    return res.status(200).json(newUser);
+    return res.status(200).json(result);
   }
 }
 
