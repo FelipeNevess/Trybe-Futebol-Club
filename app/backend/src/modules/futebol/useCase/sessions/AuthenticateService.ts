@@ -35,8 +35,13 @@ class AuthenticateService {
       expiresIn: expiresIn as string,
     });
 
-    return { user, token };
-  };
+    const newUser = {
+      user: { id: user.id, username: user.username, role: user.role, email: user.email },
+      token,
+    };
+
+    return newUser;
+  }
 }
 
 export default new AuthenticateService();
