@@ -1,5 +1,10 @@
+import { Request, Response, NextFunction } from 'express';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import 'express-async-errors';
+
+import router from './routes';
+import AppError from './errors/AppError';
 
 class App {
   public app: express.Express;
@@ -19,6 +24,16 @@ class App {
 
     this.app.use(accessControl);
     this.app.use(bodyParser.json());
+
+    this.app.use(router);
+
+    this.app.use((err: Error, _request: Request, res: Response, _: NextFunction) => {
+      if (err instanceof AppError) {
+        return res.status(err.statusCode).json({ message: err.message });
+      }
+
+      return res.status(500).json({ status: 'error', message: 'Internal server error' });
+    });
   }
 
   public start(PORT: string | number):void {
