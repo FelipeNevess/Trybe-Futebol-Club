@@ -13,7 +13,7 @@ const { expect } = chai;
 const email = 'test@test.com';
 const password = '1234566';
 
-describe('Sessions Repositories', () => {
+describe('Authenticate Service', () => {
   describe('Testing function execute', () => {
     describe('on success', () => {
       before(async () => {
