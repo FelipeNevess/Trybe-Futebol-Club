@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 import AppError from '../../../../errors/AppError';
 import authConfig from '../../../../config/auth';
 import SessionsRepository from '../../repositories/implementations/SessionsRepositories';
-import ValidateInfosSession from '../../../../utils/ValidateInfosSession';
+import ValidateInfosSessionUtils from '../../../../utils/ValidateInfosSessionUtils';
 
 interface IRequest {
   email: string;
@@ -13,7 +13,7 @@ interface IRequest {
 
 class AuthenticateService {
   static async execute({ email, password }: IRequest) {
-    ValidateInfosSession.validation({ email, password });
+    ValidateInfosSessionUtils.validation({ email, password });
 
     const user = await SessionsRepository.findByEmail(email);
 
@@ -22,7 +22,6 @@ class AuthenticateService {
     }
 
     // const checkPasswordAlreadyExists = await compare(user.password, password);
-    // console.log(`Body: ${password} e User ${user.password} = ${checkPasswordAlreadyExists}`);
 
     if (password !== user.password) {
       throw new AppError('Incorrect email or password', 401);
@@ -30,7 +29,7 @@ class AuthenticateService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, String(secret), {
+    const token = sign({}, secret, {
       subject: String(user.id),
       expiresIn: expiresIn as string,
     });
