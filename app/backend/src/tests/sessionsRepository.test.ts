@@ -58,8 +58,6 @@ describe('Sessions Repositories', () => {
 
       it('checks if the function returns a null', async () => {
         const result = await SessionsRepository.findByEmail('email@errado.com');
-        console.log(result);
-  
   
         expect(result).to.be.eq(null);
       })
