@@ -217,5 +217,53 @@ describe('Authenticate Service', () => {
 
       expect(result).to.throw;
     });
+
+    it('should not return an error', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: 'secret_user'
+      }).catch((err) => err);
+
+      expect(result).to.not.throw;
+    });
+
+    it('it should be possible to return an object', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: 'secret_user'
+      }).then((res) => res);
+
+      expect(result).to.be.an('object');
+    });
+
+    it('must withdraw the expected token', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: 'secret_user'
+      }).then((res) => res.token);
+
+      expect(result).to.be.eq('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+    });
+
+    it('it should be possible to return an object with the user information', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: 'secret_user'
+      }).then((res) => res.user);
+
+      expect(result).to.be.an('object');
+      expect(result).to.not.empty;
+    });
+
+    it('should return one to the expected information', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: 'secret_user'
+      }).then((res) => res.user);
+      
+      expect(result).to.deep.eq(
+        { id: 2, username: 'User', role: 'user', email: 'user@user.com' }
+      );
+    });
   });
 });
