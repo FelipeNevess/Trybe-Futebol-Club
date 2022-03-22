@@ -97,7 +97,125 @@ describe('Authenticate Service', () => {
           .then((res) => expect(res).to.be.an('object'))
           .catch((err) => expect(err).to.be.eq(err))
       });
-      
+    });
+  });
+
+  describe('testing errors', () => {
+    it('it should be possible to return an error', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: '123456789'
+      }).catch((err) => err);
+
+      expect(result).to.throw;
+    });
+
+    it('the error message should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: '123456789'
+      }).catch((err) => err.message);
+
+      expect(result).to.be.eq('Incorrect email or password');
+    });
+
+    it('the error code should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: '123456789'
+      }).catch((err) => err.code);
+
+      expect(result).to.be.eq(401);
+    });
+
+    it('the error code should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: '123456789'
+      }).catch((err) => err);
+
+      expect(result).to.throw;
+    });
+
+    it('the error message should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: '123456789'
+      }).catch((err) => err.message);
+
+      expect(result).to.be.eq('Incorrect email or password');
+    });
+
+    it('the error code should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'user@user.com',
+        password: '123456789'
+      }).catch((err) => err.code);
+
+      expect(result).to.be.eq(401);
+    });
+
+    it('should return an error if the email is not provided', async () => {
+      const result = await AuthenticateService.execute({
+        email: '',
+        password: '123456789'
+      }).catch((err) => err.code);
+
+      expect(result).to.be.eq(400);
+    });
+
+    it('the error message should be as expected', async () => {
+      const result = await AuthenticateService.execute({
+        email: '',
+        password: '123456789'
+      }).catch((err) => err.message);
+
+      expect(result).to.be.eq('All fields must be filled');
+    });
+
+    it('should return an error if the email is entered correctly', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'testeteste',
+        password: '123456789'
+      }).catch((err) => err.message);
+
+      expect(result).to.be.eq('Error, the email format must be "@" and "."');
+    });
+
+    it('it should be possible to return an error if the password is not provided', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: ''
+      }).catch((err) => err);
+
+      expect(result).to.throw;
+    });
+
+    it('it should be possible to return an error with the following code', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: ''
+      }).catch((err) => err.code);
+
+      expect(result).to.be.eq(400);
+    });
+
+    it('it should be possible to return an error with the following message', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: ''
+      }).catch((err) => err.message);
+
+      expect(result).to.be.eq('All fields must be filled');
+    });
+
+    it('it should be possible to return an error if the password is less than 6 characters', async () => {
+      const result = await AuthenticateService.execute({
+        email: 'test@test.com',
+        password: '12345'
+      }).catch((err) => err);
+
+      expect(result).to.throw;
     });
   });
 });

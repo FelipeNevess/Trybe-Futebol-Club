@@ -1,10 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
 import AppError from '../errors/AppError';
 
-class ValidateInfosSessionUtils {
-  static validation(req: Request, res: Response, next: NextFunction) {
-    const { email, password } = req.body;
+interface IRequest {
+  email: string;
+  password: string;
+}
 
+class ValidateInfosSessionUtils {
+  static validation({ email, password }: IRequest) {
     const verofyEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/.test(email);
 
     switch (true) {
@@ -15,7 +17,7 @@ class ValidateInfosSessionUtils {
       case password.length <= 6:
         throw new AppError('Password must be at least 6 characters long');
       default:
-        next();
+        break;
     }
   }
 }
