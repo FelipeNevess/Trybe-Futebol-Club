@@ -3,7 +3,7 @@ import Club from '../../../../database/models/Club';
 
 class MatchRepository {
   static async index(inProgress?: string): Promise<Array<object>> {
-    const matches = !inProgress as boolean ? await Match.findAll({
+    const matches = !inProgress ? await Match.findAll({
       include: [
         { model: Club, as: 'homeClub', attributes: { exclude: ['id'] } },
         { model: Club, as: 'awayClub', attributes: { exclude: ['id'] } },

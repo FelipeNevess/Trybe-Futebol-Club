@@ -27,7 +27,7 @@ class App {
 
     this.app.use(router);
 
-    this.app.use((err: Error, _request: Request, res: Response, _: NextFunction) => {
+    this.app.use((err: Error, request: Request, res: Response, _: NextFunction) => {
       if (err instanceof AppError) {
         return res.status(err.code).json({ message: err.message });
       }
