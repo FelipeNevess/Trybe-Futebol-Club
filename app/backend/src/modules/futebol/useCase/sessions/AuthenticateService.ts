@@ -3,7 +3,6 @@ import { compare } from 'bcryptjs';
 import AppError from '../../../../errors/AppError';
 import authConfig from '../../../../config/auth';
 import SessionsRepository from '../../repositories/implementations/SessionsRepositories';
-import ValidateInfosSessionUtils from '../../../../utils/ValidateInfosSessionUtils';
 
 interface IRequest {
   email: string;
@@ -12,8 +11,6 @@ interface IRequest {
 
 class AuthenticateService {
   static async execute({ email, password }: IRequest) {
-    ValidateInfosSessionUtils.validation({ email, password });
-
     const user = await SessionsRepository.findByEmail(email);
 
     if (!user) {
@@ -28,6 +25,7 @@ class AuthenticateService {
 
     const { secret, expiresIn } = authConfig.jwt;
     const token = sign({}, secret, { subject: String(user.id), expiresIn: expiresIn as string });
+
     const newUser = {
       user: { id: user.id, username: user.username, role: user.role, email: user.email },
       token,
