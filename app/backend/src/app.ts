@@ -37,7 +37,7 @@ class App {
   }
 
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log('Service started 🟢'));
+    this.app.listen(PORT, () => console.log(`Service started 🟢 ${PORT}`));
   }
 }
 

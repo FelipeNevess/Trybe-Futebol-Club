@@ -10,12 +10,12 @@ import { IResponseSession } from '../modules/futebol/repositories/ISessionsRepos
 chai.use(chaiHttp);
 const { expect } = chai;
 
-const email = 'test@test.com';
-const password = '1234566';
-
 describe('Authenticate Service', () => {
   describe('Testing function execute', () => {
     describe('on success', () => {
+      const email = 'test@test.com';
+      const password = '1234566';
+
       before(async () => {
         sinon.stub(SessionsRepository, "findByEmail").resolves({
           id: 1,
@@ -82,9 +82,20 @@ describe('Authenticate Service', () => {
       });
 
       it('it should be possible to return an error if the email is wrong', async () => {
+        const email = 'test@test.com';
+        const password = '1234566';
         const result = await AuthenticateService.execute({ email, password });
 
         expect(result).to.be.an('undefined');
+      });
+
+      it('check if returned the expected error', async () => {
+        const email = 'test@teest.com';
+        const password = '1234566';
+        
+        await AuthenticateService.execute({ email, password })
+          .then((res) => expect(res).to.be.an('object'))
+          .catch((err) => expect(err).to.be.eq(err))
       });
       
     });

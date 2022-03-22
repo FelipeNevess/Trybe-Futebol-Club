@@ -1,6 +1,5 @@
-// import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-
+import { compare } from 'bcryptjs';
 import AppError from '../../../../errors/AppError';
 import authConfig from '../../../../config/auth';
 import SessionsRepository from '../../repositories/implementations/SessionsRepositories';
@@ -21,19 +20,14 @@ class AuthenticateService {
       throw new AppError('Incorrect email or password', 401);
     }
 
-    // const checkPasswordAlreadyExists = await compare(user.password, password);
+    const passwordHash = await compare(password, user.password);
 
-    if (password !== user.password) {
+    if (!passwordHash) {
       throw new AppError('Incorrect email or password', 401);
     }
 
     const { secret, expiresIn } = authConfig.jwt;
-
-    const token = sign({}, secret, {
-      subject: String(user.id),
-      expiresIn: expiresIn as string,
-    });
-
+    const token = sign({}, secret, { subject: String(user.id), expiresIn: expiresIn as string });
     const newUser = {
       user: { id: user.id, username: user.username, role: user.role, email: user.email },
       token,

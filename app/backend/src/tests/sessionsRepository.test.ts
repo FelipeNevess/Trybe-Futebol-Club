@@ -60,7 +60,7 @@ describe('Sessions Repositories', () => {
         const result = await SessionsRepository.findByEmail('email@errado.com');
   
         expect(result).to.be.eq(null);
-      })
+      });
     })
   });
 
@@ -76,7 +76,7 @@ describe('Sessions Repositories', () => {
     it('the function should not return anything', async () => {
       const result = await SessionsRepository.create({email, password });
 
-      expect(result).to.be.an('undefined')
+      expect(result).to.be.an('undefined');
     });
   });
 });

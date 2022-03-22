@@ -5,8 +5,6 @@ import AppError from '../errors/AppError';
 import authConfig from '../config/auth';
 
 interface ITokenPayload {
-  iat: number;
-  exp: number;
   sub: string;
 }
 
