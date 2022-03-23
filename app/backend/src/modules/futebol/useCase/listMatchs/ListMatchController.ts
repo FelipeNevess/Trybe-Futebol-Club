@@ -5,8 +5,7 @@ class MatchController {
   static async handle(req: Request, res: Response) {
     const { inProgress } = req.query;
 
-    const results = inProgress;
-    const result = await MatchService.execute(results as string);
+    const result = await MatchService.execute(inProgress as string);
 
     return res.status(200).json(result);
   }
