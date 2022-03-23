@@ -22,7 +22,7 @@ function UserAuthenticated(req: Request, _res: Response, next: NextFunction) {
     const decoded = verify(token, secret);
     const { sub } = decoded as ITokenPayload;
 
-    req.user = { id: sub };
+    req.body.user = { id: sub };
 
     next();
   } catch {

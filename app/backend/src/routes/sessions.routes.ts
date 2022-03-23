@@ -9,7 +9,7 @@ const sessionsRouter = Router();
 
 sessionsRouter.post('/', (req, res) => AuthenticateController.handle(req, res));
 sessionsRouter.get('/validate', UserAuthenticated, async (req, res) => {
-  const { id }: { id: string } = req.user;
+  const { id } = req.body.user;
 
   const { role } = await User.findOne({ where: { id } }) as IResponseSession;
 
