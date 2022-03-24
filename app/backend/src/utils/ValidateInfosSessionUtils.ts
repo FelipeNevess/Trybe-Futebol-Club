@@ -11,7 +11,7 @@ class ValidateInfosSessionUtils {
 
     switch (true) {
       case !email || !password:
-        throw new AppError('All fields must be filled');
+        throw new AppError('All fields must be filled', 401);
       case !verofyEmail:
         throw new AppError('Error, the email format must be "@" and "."');
       case password.length <= 6:
