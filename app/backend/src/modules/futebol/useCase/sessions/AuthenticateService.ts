@@ -13,6 +13,7 @@ interface IRequest {
 class AuthenticateService {
   static async execute({ email, password }: IRequest) {
     ValidateInfosSessionUtils.validation({ email, password });
+
     const user = await SessionsRepository.findByEmail(email);
 
     if (!user) { throw new AppError('Incorrect email or password', 401); }

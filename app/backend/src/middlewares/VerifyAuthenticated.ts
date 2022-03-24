@@ -15,11 +15,10 @@ function UserAuthenticated(req: Request, _res: Response, next: NextFunction) {
     throw new AppError('Token not found', 401);
   }
 
-  const [, token] = authHeader.split(' ');
   const { secret } = authConfig.jwt;
 
   try {
-    const decoded = verify(token, secret);
+    const decoded = verify(authHeader, secret);
     const { sub } = decoded as ITokenPayload;
 
     req.body.user = { id: sub };

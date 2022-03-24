@@ -8,12 +8,13 @@ import { IResponseSession } from '../modules/futebol/repositories/ISessionsRepos
 const sessionsRouter = Router();
 
 sessionsRouter.post('/', (req, res) => AuthenticateController.handle(req, res));
+
 sessionsRouter.get('/validate', UserAuthenticated, async (req, res) => {
   const { id } = req.body.user;
 
   const { role } = await User.findOne({ where: { id } }) as IResponseSession;
 
-  return res.status(200).send(role);
+  return res.status(200).json(role);
 });
 
 export default sessionsRouter;
