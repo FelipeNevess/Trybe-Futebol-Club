@@ -63,20 +63,4 @@ describe('Sessions Repositories', () => {
       });
     })
   });
-
-  describe('Testing function create', () => {
-    before(async () => {
-      sinon.stub(SessionsRepository, "create").resolves();
-    });
-    
-    after( async () => {
-      (SessionsRepository.create as sinon.SinonStub).restore();
-    });
-
-    it('the function should not return anything', async () => {
-      const result = await SessionsRepository.create({email, password });
-
-      expect(result).to.be.an('undefined');
-    });
-  });
 });

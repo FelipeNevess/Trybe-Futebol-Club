@@ -6,7 +6,7 @@ class ClubService {
     const club = await ClubsRepository.show(id);
 
     if (!club) {
-      throw new AppError('There is no team with such id!', 404);
+      throw new AppError('There is no team with such id!', 401);
     }
 
     return club;

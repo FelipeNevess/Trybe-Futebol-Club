@@ -26,10 +26,8 @@ class MatchService {
     await ClubService.execute(homeTeam);
     await ClubService.execute(awayTeam);
 
-    if (inProgress === false) { throw new AppError('erro'); }
-
     if (awayTeam === homeTeam) {
-      throw new AppError('It is not possible to create a match with two equal teams');
+      throw new AppError('It is not possible to create a match with two equal teams', 401);
     }
 
     const match = await MatchRepository.create({
