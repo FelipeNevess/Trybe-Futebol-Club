@@ -3,8 +3,8 @@ import UpdateMatchService from './UpdateMatchService';
 
 class MatchController {
   static async handle(req: Request, res: Response) {
+    const { homeTeamGoals, awayTeamGoals, inProgress } = req.body;
     const { id } = req.params;
-    const { homeTeamGoals, awayTeamGoals } = req.body;
     const finish = req.url;
 
     const includeFinish = finish.includes('finish');
@@ -14,6 +14,7 @@ class MatchController {
       homeTeamGoals,
       awayTeamGoals,
       includeFinish,
+      inProgress,
     });
 
     return res.status(201).json(result);

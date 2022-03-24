@@ -21,21 +21,18 @@ class MatchRepository {
     return result;
   }
 
-  static async update({
-    id,
-    homeTeamGoals,
-    awayTeamGoals,
-    includeFinish,
-  }: IMatchUpdateRequestDTO): Promise<void> {
+  static async update({ id, homeTeamGoals, awayTeamGoals, includeFinish, inProgress }:
+  IMatchUpdateRequestDTO): Promise<void> {
     if (includeFinish) {
       await Match.update({ inProgress: false }, { where: { id } });
-      return;
     }
 
-    await Match.update({
-      homeTeamGoals,
-      awayTeamGoals,
-    }, { where: { id } });
+    if (!includeFinish) {
+      await Match.update(
+        { homeTeamGoals, awayTeamGoals, inProgress },
+        { where: { id } },
+      );
+    }
   }
 
   static async create({
