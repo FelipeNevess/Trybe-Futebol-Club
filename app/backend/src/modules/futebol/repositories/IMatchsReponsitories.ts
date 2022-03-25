@@ -8,9 +8,10 @@ interface IMatchCreateRequestDTO {
 
 interface IMatchUpdateRequestDTO {
   id: number;
-  includeFinish?: boolean;
   homeTeamGoals?: number;
   awayTeamGoals?: number;
+  includeFinish?: boolean;
+  inProgress?: boolean
 }
 
 export { IMatchUpdateRequestDTO, IMatchCreateRequestDTO };
