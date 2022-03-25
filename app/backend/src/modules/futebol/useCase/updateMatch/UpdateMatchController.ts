@@ -9,14 +9,14 @@ class MatchController {
 
     const includeFinish = finish.includes('finish');
 
-    await UpdateMatchService.execute({
+    const result = await UpdateMatchService.execute({
       id: Number(id),
       homeTeamGoals,
       awayTeamGoals,
       includeFinish,
     });
 
-    return res.status(200).send();
+    return res.status(200).json({ message: result });
   }
 }
 

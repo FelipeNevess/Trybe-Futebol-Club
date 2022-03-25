@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import 'express-async-errors';
+import * as cors from 'cors';
 
 import router from './routes';
 import AppError from './errors/AppError';
@@ -17,13 +18,14 @@ class App {
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
       res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT');
+      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
 
     this.app.use(accessControl);
     this.app.use(bodyParser.json());
+    this.app.use(cors());
 
     this.app.use(router);
 
