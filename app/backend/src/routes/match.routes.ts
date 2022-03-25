@@ -11,7 +11,7 @@ const matchsRouter = Router();
 matchsRouter.get('/', (req, res) => ListMatchController.handle(req, res));
 matchsRouter.post('/', VerifyAuthenticated, (req, res) => CreateMatchController.handle(req, res));
 
-matchsRouter.patch('/:id', (req, res) => UpdateMatchController.handle(req, res));
 matchsRouter.patch('/:id/finish', (req, res) => UpdateMatchController.handle(req, res));
+matchsRouter.patch('/:id', (req, res) => UpdateMatchController.handle(req, res));
 
 export default matchsRouter;

@@ -11,7 +11,6 @@ interface IMatchUpdateRequestDTO {
   includeFinish?: boolean;
   homeTeamGoals?: number;
   awayTeamGoals?: number;
-  inProgress?: boolean;
 }
 
 export { IMatchUpdateRequestDTO, IMatchCreateRequestDTO };
