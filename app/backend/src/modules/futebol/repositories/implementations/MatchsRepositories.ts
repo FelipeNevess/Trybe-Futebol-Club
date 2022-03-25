@@ -29,17 +29,12 @@ class MatchRepository {
       return 'Update finish';
     }
 
-    if (!includeFinish) {
-      await Match.update(
-        {
-          homeTeamGoals,
-          awayTeamGoals,
-        },
-        { where: { id, inProgress: true } },
-      );
+    await Match.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id, inProgress: true } },
+    );
 
-      return 'Update match';
-    }
+    return 'Update match';
   }
 
   static async create({
