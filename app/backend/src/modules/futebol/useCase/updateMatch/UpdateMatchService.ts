@@ -13,15 +13,13 @@ class MatchService {
     includeFinish,
     awayTeamGoals,
     homeTeamGoals,
-  }: IResponse): Promise<string | void> {
-    const result = await MatchRepository.update({
+  }: IResponse): Promise<void> {
+    await MatchRepository.update({
       id,
       includeFinish,
       awayTeamGoals,
       homeTeamGoals,
     });
-
-    return result;
   }
 }
 
