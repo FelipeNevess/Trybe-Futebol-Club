@@ -2,14 +2,13 @@ import MatchRepository from '../../repositories/implementations/MatchsRepositori
 
 interface IResponse {
   id: number;
-  homeTeamGoals?: number;
-  awayTeamGoals?: number;
+  includeFinish: boolean;
 }
 
 class MatchService {
-  static async execute({ id, awayTeamGoals, homeTeamGoals }: IResponse): Promise<string | void> {
+  static async execute({ id, includeFinish }: IResponse): Promise<string | void> {
     const result = await MatchRepository
-      .update({ id, awayTeamGoals, homeTeamGoals });
+      .update({ id, includeFinish });
 
     return result;
   }

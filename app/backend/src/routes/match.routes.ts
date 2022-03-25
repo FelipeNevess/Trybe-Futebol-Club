@@ -3,6 +3,9 @@ import { Router } from 'express';
 import ListMatchController from '../modules/futebol/useCase/listMatchs/ListMatchController';
 import CreateMatchController from '../modules/futebol/useCase/createMatchs/CreateMatchController';
 import UpdateMatchController from '../modules/futebol/useCase/updateMatch/UpdateMatchController';
+import
+UpdateMatchFinishController
+  from '../modules/futebol/useCase/updateMatchFinish/UpdateMatchFinishController';
 
 import VerifyAuthenticated from '../middlewares/VerifyAuthenticated';
 
@@ -12,6 +15,6 @@ matchsRouter.get('/', (req, res) => ListMatchController.handle(req, res));
 matchsRouter.post('/', VerifyAuthenticated, (req, res) => CreateMatchController.handle(req, res));
 
 matchsRouter.patch('/:id', (req, res) => UpdateMatchController.handle(req, res));
-matchsRouter.patch('/:id/finish', (req, res) => UpdateMatchController.handle(req, res));
+matchsRouter.patch('/:id/finish', (req, res) => UpdateMatchFinishController.handle(req, res));
 
 export default matchsRouter;
