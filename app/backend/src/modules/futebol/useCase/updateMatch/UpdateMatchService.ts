@@ -5,7 +5,6 @@ interface IResponse {
   homeTeamGoals?: number;
   awayTeamGoals?: number;
   includeFinish?: boolean;
-  inProgress?: boolean;
 }
 
 class MatchService {
@@ -14,14 +13,12 @@ class MatchService {
     includeFinish,
     awayTeamGoals,
     homeTeamGoals,
-    inProgress,
   }: IResponse): Promise<void> {
     await MatchRepository.update({
       id,
       includeFinish,
       awayTeamGoals,
       homeTeamGoals,
-      inProgress,
     });
   }
 }

@@ -1,6 +1,6 @@
 import MatchRepository from '../../repositories/implementations/MatchsRepositories';
 
-interface IRequest {
+interface IResponse {
   id: number,
   homeTeam: number,
   homeTeamGoals: number,
@@ -17,7 +17,7 @@ interface IRequest {
 
 class MatchService {
   static async execute(inProgress?: string): Promise<Array<object>> {
-    const match = await MatchRepository.index() as IRequest[];
+    const match = await MatchRepository.index() as IResponse[];
 
     if (inProgress) {
       const findByInProgress = match
