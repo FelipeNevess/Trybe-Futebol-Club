@@ -21,6 +21,19 @@ interface IResponseMatch {
   awayTeamGoals: number;
 }
 
+interface IMatchInfo {
+  name: string,
+  totalPoints: number,
+  totalGames: number,
+  totalVictories: number,
+  totalDraws: number,
+  totalLosses: number,
+  goalsFavor: number,
+  goalsOwn: number,
+  goalsBalance: number,
+  efficiency: number
+}
+
 class LeaderBoardService {
   awayPoints = 0;
 
@@ -128,6 +141,20 @@ class LeaderBoardService {
     };
   }
 
+  sortMatch = (teamA: IMatchInfo, teamB: IMatchInfo): number => {
+    if (teamB.totalPoints > teamA.totalPoints) return 1;
+    if (teamB.totalPoints < teamA.totalPoints) return -1;
+    if (teamB.totalVictories > teamA.totalVictories) return 1;
+    if (teamB.totalVictories < teamA.totalVictories) return -1;
+    if (teamB.goalsBalance > teamA.goalsBalance) return 1;
+    if (teamB.goalsBalance < teamA.goalsBalance) return -1;
+    if (teamB.goalsFavor > teamA.goalsFavor) return 1;
+    if (teamB.goalsFavor < teamA.goalsFavor) return -1;
+    if (teamB.goalsOwn > teamA.goalsOwn) return 1;
+    if (teamB.goalsOwn < teamA.goalsOwn) return -1;
+    return 0;
+  };
+
   async execute() {
     const result = await LeaderBoardRepositories.index() as IResponseRepository[];
     const response = await Promise.all(
@@ -138,7 +165,7 @@ class LeaderBoardService {
         }),
     );
 
-    return response;
+    return response.sort(this.sortMatch);
   }
 }
 
