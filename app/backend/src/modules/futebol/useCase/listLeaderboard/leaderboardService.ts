@@ -114,27 +114,22 @@ class LeaderBoardService {
   }
 
   objectMatch(name: string) {
-    const contEfficiency = (((this.homePoints + this.awayPoints)
-      / ((this.homeGame + this.awayGame) * 3)) * 100);
-
     return {
       name,
-      totalPoints: this.homePoints + this.awayPoints,
-      totalGames: this.homeGame + this.awayGame,
-      totalVictories: this.victoriesHome + this.victoriesAway,
-      totalDraws: this.drawsHome + this.drawsAway,
-      totalLosses: this.lossesHome + this.lossesAway,
-      goalsFavor: this.goalsFavorHome + this.goalsFavorAway,
-      goalsOwn: this.goalsOwnHome + this.goalsOwnAway,
-      goalsBalance:
-        (this.goalsFavorHome + this.goalsFavorAway) - (this.goalsOwnHome + this.goalsOwnAway),
-      efficiency: parseFloat(String(contEfficiency.toFixed(2))),
+      totalPoints: this.homePoints,
+      totalGames: this.homeGame,
+      totalVictories: this.victoriesHome,
+      totalDraws: this.drawsHome,
+      totalLosses: this.lossesHome,
+      goalsFavor: this.goalsFavorHome,
+      goalsOwn: this.goalsOwnHome,
+      goalsBalance: (this.goalsFavorHome - this.goalsOwnHome),
+      efficiency: parseFloat(String(((this.homePoints / (this.homeGame * 3)) * 100).toFixed(2))),
     };
   }
 
   async execute() {
     const result = await LeaderBoardRepositories.index() as IResponseRepository[];
-
     const response = await Promise.all(
       result
         .map(async ({ homeMatch, awayMatch, clubName }) => {
@@ -148,3 +143,20 @@ class LeaderBoardService {
 }
 
 export default new LeaderBoardService();
+
+// return {
+//   name,
+//   totalPoints: this.homePoints + this.awayPoints,
+//   totalGames: this.homeGame + this.awayGame,
+//   totalVictories: this.victoriesHome + this.victoriesAway,
+//   totalDraws: this.drawsHome + this.drawsAway,
+//   totalLosses: this.lossesHome + this.lossesAway,
+//   goalsFavor: this.goalsFavorHome + this.goalsFavorAway,
+//   goalsOwn: this.goalsOwnHome + this.goalsOwnAway,
+//   goalsBalance:
+//     (this.goalsFavorHome + this.goalsFavorAway) - (this.goalsOwnHome + this.goalsOwnAway),
+//   efficiency: parseFloat(String(contEfficiency.toFixed(2))),
+// };
+
+// const contEfficiency = (((this.homePoints + this.awayPoints)
+//   / ((this.homeGame + this.awayGame) * 3)) * 100);
