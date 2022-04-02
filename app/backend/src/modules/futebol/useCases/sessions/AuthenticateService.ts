@@ -4,14 +4,10 @@ import AppError from '../../../../errors/AppError';
 import authConfig from '../../../../config/auth';
 import SessionsRepository from '../../repositories/implementations/SessionsRepositories';
 import ValidateInfosSessionUtils from '../../../../utils/ValidateInfosSessionUtils';
-
-interface IRequest {
-  email: string;
-  password: string;
-}
+import IAuthenticate from './IAuthenticate';
 
 class AuthenticateService {
-  static async execute({ email, password }: IRequest) {
+  static async execute({ email, password }: IAuthenticate) {
     ValidateInfosSessionUtils.validation({ email, password });
 
     const user = await SessionsRepository.findByEmail(email);

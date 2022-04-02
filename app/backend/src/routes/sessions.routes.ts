@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import AuthenticateController from '../modules/futebol/useCase/sessions/AuthenticateController';
+import AuthenticateController from '../modules/futebol/useCases/sessions/AuthenticateController';
 import UserAuthenticated from '../middlewares/VerifyAuthenticated';
 import User from '../database/models/User';
 import { IResponseSession } from '../modules/futebol/repositories/ISessionsRepositories';

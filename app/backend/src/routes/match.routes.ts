@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import ListMatchController from '../modules/futebol/useCase/listMatchs/ListMatchController';
-import CreateMatchController from '../modules/futebol/useCase/createMatchs/CreateMatchController';
-import UpdateMatchController from '../modules/futebol/useCase/updateMatch/UpdateMatchController';
+import ListMatchController from '../modules/futebol/useCases/listMatchs/ListMatchController';
+import CreateMatchController from '../modules/futebol/useCases/createMatchs/CreateMatchController';
+import UpdateMatchController from '../modules/futebol/useCases/updateMatch/UpdateMatchController';
 import
 UpdateMatchFinishController
-  from '../modules/futebol/useCase/updateMatchFinish/UpdateMatchFinishController';
+  from '../modules/futebol/useCases/updateMatchFinish/UpdateMatchFinishController';
 
 import VerifyAuthenticated from '../middlewares/VerifyAuthenticated';
 

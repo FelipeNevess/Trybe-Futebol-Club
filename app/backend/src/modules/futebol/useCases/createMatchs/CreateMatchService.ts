@@ -1,23 +1,7 @@
 import AppError from '../../../../errors/AppError';
 import MatchRepository from '../../repositories/implementations/MatchsRepositories';
 import ClubService from '../getClub/GetClubService';
-
-interface IRequest {
-  homeTeam: number,
-  awayTeam: number,
-  homeTeamGoals: number,
-  awayTeamGoals: number,
-  inProgress: boolean,
-}
-
-interface IResponse {
-  id: number;
-  homeTeam: number,
-  awayTeam: number,
-  homeTeamGoals: number,
-  awayTeamGoals: number,
-  inProgress: boolean,
-}
+import { IRequest, IResponse } from './ICreateMatch';
 
 class MatchService {
   static async execute(

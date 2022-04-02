@@ -1,13 +1,8 @@
 import MatchRepository from '../../repositories/implementations/MatchsRepositories';
-
-interface IResponse {
-  id: number;
-  homeTeamGoals?: number;
-  awayTeamGoals?: number;
-}
+import IUpdateMatch from './IUpdateMatch';
 
 class MatchService {
-  static async execute({ id, awayTeamGoals, homeTeamGoals }: IResponse): Promise<string | void> {
+  static async execute({ id, awayTeamGoals, homeTeamGoals }: IUpdateMatch): Promise<string | void> {
     const result = await MatchRepository
       .update({ id, awayTeamGoals, homeTeamGoals });
 

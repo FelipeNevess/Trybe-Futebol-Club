@@ -1,12 +1,8 @@
 import MatchRepository from '../../repositories/implementations/MatchsRepositories';
-
-interface IResponse {
-  id: number;
-  includeFinish: boolean;
-}
+import IUpdateMatchFinish from './IUpdateMatchFinish';
 
 class MatchService {
-  static async execute({ id, includeFinish }: IResponse): Promise<string | void> {
+  static async execute({ id, includeFinish }: IUpdateMatchFinish): Promise<string | void> {
     const result = await MatchRepository
       .update({ id, includeFinish });
 

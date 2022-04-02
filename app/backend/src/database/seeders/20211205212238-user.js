@@ -1,10 +1,5 @@
 module.exports = {
   up: async (queryInterface) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     */
     await queryInterface.bulkInsert('users', [
       {
         username: 'Admin',
@@ -22,11 +17,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     */
     await queryInterface.bulkDelete('users', null, {});
   },
 };

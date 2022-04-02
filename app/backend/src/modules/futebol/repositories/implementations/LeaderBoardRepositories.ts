@@ -20,26 +20,6 @@ class LeaderBoardRepositories {
 
     return matches;
   }
-
-  static async show(id: number): Promise<Array<object>> {
-    const matches = await Club.findAll({
-      where: { id },
-      include: [
-        {
-          model: Match,
-          as: 'homeMatch',
-          attributes: { exclude: ['id'] },
-        },
-        {
-          model: Match,
-          as: 'awayMatch',
-          attributes: { exclude: ['id'] },
-        },
-      ],
-    });
-
-    return matches;
-  }
 }
 
 export default LeaderBoardRepositories;

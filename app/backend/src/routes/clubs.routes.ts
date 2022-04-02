@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import ListClubController from '../modules/futebol/useCase/listClubs/ListClubController';
-import GetClubController from '../modules/futebol/useCase/getClub/GetClubController';
+import ListClubController from '../modules/futebol/useCases/listClubs/ListClubController';
+import GetClubController from '../modules/futebol/useCases/getClub/GetClubController';
 
 const clubsRouter = Router();
 

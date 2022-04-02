@@ -1,23 +1,9 @@
 import MatchRepository from '../../repositories/implementations/MatchsRepositories';
-
-interface IResponse {
-  id: number,
-  homeTeam: number,
-  homeTeamGoals: number,
-  awayTeam: number,
-  awayTeamGoals: number,
-  inProgress: boolean,
-  homeClub: {
-    clubName: string
-  },
-  awayClub: {
-    clubName: string
-  }
-}
+import IListMatch from './IListMatch';
 
 class MatchService {
   static async execute(inProgress?: string): Promise<Array<object>> {
-    const match = await MatchRepository.index() as IResponse[];
+    const match = await MatchRepository.index() as IListMatch[];
 
     if (inProgress) {
       const findByInProgress = match
