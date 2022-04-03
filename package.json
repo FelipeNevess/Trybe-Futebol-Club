@@ -4,20 +4,11 @@
   "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run install:apps",
-    "install:apps": "./apps_install.sh",
-    "pretest": "(cd ./app/backend /bin/sh tsc_eval.sh)",
-    "test": "jest -i --forceExit --verbose",
-    "test:browser": "SHOW_BROWSER=true npm test",
-    "test:debug": "DEBUG=true npm test",
     "compose:up": "(cd app && docker-compose up -d --build)",
     "compose:down": "(cd app && docker-compose down --remove-orphans)"
   },
   "author": "Trybe",
   "devDependencies": {
-    "@testing-library/jest-dom": "5.15.0",
-    "@testing-library/react": "11.2.7",
-    "@testing-library/user-event": "12.8.3",
     "axios": "^0.26.0",
     "dotenv": "10.0.0",
     "jest": "26.6.0",
