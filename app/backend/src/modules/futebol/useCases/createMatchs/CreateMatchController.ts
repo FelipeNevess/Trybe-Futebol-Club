@@ -1,26 +1,25 @@
 import { Request, Response } from 'express';
-import CreateMatchService from './CreateMatchService';
+import CreateMatchUseCase from './CreateMatchUseCase';
+import { IRequest } from './ICreateMatch';
 
-class MatchController {
-  static async handle(req: Request, res: Response) {
-    const {
+class CreateMatchController {
+  constructor(
+    private createMatchUseCase: CreateMatchUseCase,
+  ) {}
+
+  async handle(req: Request, res: Response): Promise<Response> {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body as IRequest;
+
+    const result = await this.createMatchUseCase.execute({
       homeTeam,
       awayTeam,
       homeTeamGoals,
       awayTeamGoals,
       inProgress,
-    } = req.body;
-
-    const result = await CreateMatchService.execute({
-      homeTeam,
-      awayTeam,
-      homeTeamGoals,
-      awayTeamGoals,
-      inProgress,
-    });
+    }) as IRequest;
 
     return res.status(201).json(result);
   }
 }
 
-export default MatchController;
+export default CreateMatchController;
