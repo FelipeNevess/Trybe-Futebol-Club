@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
-import ListClubController from '../modules/futebol/useCases/listClubs/ListClubController';
-import GetClubController from '../modules/futebol/useCases/getClub/GetClubController';
+import ListClubController from '../modules/futebol/useCases/listClubs';
+import GetByClubController from '../modules/futebol/useCases/getByClub';
 
 const clubsRouter = Router();
 
-clubsRouter.get('/', (req, res) => ListClubController.handle(req, res));
-clubsRouter.get('/:id', (req, res) => GetClubController.handle(req, res));
+clubsRouter.get('/', async (req, res) => ListClubController.handle(req, res));
+clubsRouter.get('/:id', async (req, res) => GetByClubController.handle(req, res));
 
 export default clubsRouter;

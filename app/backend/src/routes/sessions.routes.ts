@@ -1,19 +1,15 @@
 import { Router } from 'express';
 
-import AuthenticateController from '../modules/futebol/useCases/sessions/AuthenticateController';
 import UserAuthenticated from '../middlewares/VerifyAuthenticated';
-import User from '../database/models/User';
-import { IResponseSession } from '../modules/futebol/repositories/ISessionsRepositories';
+
+import CreateAuthenticateController from '../modules/futebol/useCases/login';
+import LoginValidateController from '../modules/futebol/useCases/loginValidate';
 
 const sessionsRouter = Router();
 
-sessionsRouter.post('/', (req, res) => AuthenticateController.handle(req, res));
-
-sessionsRouter.get('/validate', UserAuthenticated, async (req, res) => {
-  const { id } = req.body.user;
-  const { role } = await User.findOne({ where: { id } }) as IResponseSession;
-
-  return res.status(200).json(role);
-});
+sessionsRouter.post('/', async (req, res) => CreateAuthenticateController.handle(req, res));
+sessionsRouter
+  .get('/validate', UserAuthenticated, async (req, res) => LoginValidateController
+    .handle(req, res));
 
 export default sessionsRouter;
