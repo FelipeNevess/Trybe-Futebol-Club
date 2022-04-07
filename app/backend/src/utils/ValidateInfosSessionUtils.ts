@@ -9,7 +9,7 @@ class ValidateInfosSessionUtils {
   static validation({ email, password }: IRequest) {
     switch (true) {
       case !email || !password:
-        throw new AppError('All fields must be filled', 401);
+        throw new AppError('All fields must be filled', 400);
       default:
         break;
     }
