@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
-import UpdateMatchService from './UpdateMatchService';
+import UpdateMatchUseCase from './UpdateMatchUseCase';
+import { IRequestBody } from './IUpdateMatch';
 
-class MatchController {
-  static async handle(req: Request, res: Response) {
-    const { homeTeamGoals, awayTeamGoals } = req.body;
+class UpdateMatchController {
+  constructor(
+    private updateMatchUseCase: UpdateMatchUseCase,
+  ) {}
+
+  async handle(req: Request, res: Response): Promise<Response> {
+    const { homeTeamGoals, awayTeamGoals }: IRequestBody = req.body;
     const { id } = req.params;
 
-    const result = await UpdateMatchService.execute({
+    const result = await this.updateMatchUseCase.execute({
       id: Number(id),
       homeTeamGoals,
       awayTeamGoals,
@@ -16,4 +21,4 @@ class MatchController {
   }
 }
 
-export default MatchController;
+export default UpdateMatchController;
