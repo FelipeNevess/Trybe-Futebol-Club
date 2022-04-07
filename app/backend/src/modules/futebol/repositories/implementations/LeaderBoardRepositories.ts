@@ -1,8 +1,11 @@
 import Club from '../../../../database/models/Club';
 import Match from '../../../../database/models/Matche';
+import ILeaderBoraderRepository from '../ILeaderBoardRepository';
 
-class LeaderBoardRepositories {
-  static async index(): Promise<Array<object>> {
+class LeaderBoardRepositories implements ILeaderBoraderRepository {
+  async index(): Promise<Array<object>> {
+    this.index = this.index.bind(this);
+
     const matches = await Club.findAll({
       include: [
         {

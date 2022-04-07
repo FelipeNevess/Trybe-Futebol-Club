@@ -1,10 +1,16 @@
 import Match from '../../../../database/models/Matche';
 import Club from '../../../../database/models/Club';
 
-import { IMatchCreateRequestDTO, IMatchUpdateRequestDTO } from '../IMatchsReponsitories';
+import {
+  IMatchUpdateRequestDTO,
+  ICreateMatch,
+  IMatchCreateRequestDTO,
+} from '../IMatchsRepositories';
 
-class MatchRepository {
-  static async index(): Promise<Array<object>> {
+class MatchRepository implements ICreateMatch {
+  async index(): Promise<object[]> {
+    this.index = this.index.bind(this);
+
     const matches = await Match.findAll({
       include: [
         { model: Club, as: 'homeClub', attributes: { exclude: ['id'] } },
@@ -15,14 +21,22 @@ class MatchRepository {
     return matches;
   }
 
-  static async show(id: number): Promise<IMatchCreateRequestDTO | null> {
+  async show(id: number): Promise<IMatchCreateRequestDTO | null> {
+    this.show = this.show.bind(this);
+
     const result = await Match.findByPk(id);
 
     return result;
   }
 
-  static async update({ id, homeTeamGoals, awayTeamGoals, includeFinish }:
-  IMatchUpdateRequestDTO): Promise<void | string> {
+  async update({
+    id,
+    homeTeamGoals,
+    awayTeamGoals,
+    includeFinish,
+  }: IMatchUpdateRequestDTO): Promise< string | void > {
+    this.update = this.update.bind(this);
+
     if (includeFinish) {
       await Match.update({ inProgress: false }, { where: { id } });
 
@@ -37,7 +51,7 @@ class MatchRepository {
     return 'Update match';
   }
 
-  static async create({
+  async create({
     homeTeam,
     awayTeam,
     homeTeamGoals,
