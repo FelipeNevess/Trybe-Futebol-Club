@@ -10,6 +10,6 @@ const router = Router();
 router.use('/login', sessionsRouter);
 router.use('/clubs', clubsRouter);
 router.use('/matchs', matchsRouter);
-router.use('/leaderboard/home', leaderboard);
+router.use('/leaderboard', leaderboard);
 
 export default router;
