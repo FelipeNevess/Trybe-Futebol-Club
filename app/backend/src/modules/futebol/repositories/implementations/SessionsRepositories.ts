@@ -1,8 +1,11 @@
 import User from '../../../../database/models/User';
-import { IResponseSession } from '../ISessionsRepositories';
+import {
+  ICreateSessionsRepositories, ICreateSessionsRepositoriesDTO } from '../ISessionsRepositories';
 
-class SessionsRepository {
-  static async findByEmail(email: string): Promise<IResponseSession | null> {
+class SessionsRepository implements ICreateSessionsRepositories {
+  async findByEmail(email: string): Promise<ICreateSessionsRepositoriesDTO | null> {
+    this.findByEmail = this.findByEmail.bind(this);
+
     const user = await User.findOne({ where: { email } });
 
     return user;
