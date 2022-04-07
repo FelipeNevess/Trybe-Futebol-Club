@@ -1,4 +1,4 @@
-interface IResponseSession {
+interface ICreateSessionsRepositoriesDTO {
   id: number,
   username: string,
   role: string,
@@ -6,9 +6,8 @@ interface IResponseSession {
   password: string;
 }
 
-interface ICreateSessionDTO {
-  email: string;
-  password: string;
+interface ICreateSessionsRepositories {
+  findByEmail(email: string): Promise<ICreateSessionsRepositoriesDTO | null>
 }
 
-export { ICreateSessionDTO, IResponseSession };
+export { ICreateSessionsRepositoriesDTO, ICreateSessionsRepositories };
