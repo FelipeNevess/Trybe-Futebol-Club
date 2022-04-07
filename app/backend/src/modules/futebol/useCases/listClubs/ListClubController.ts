@@ -1,12 +1,16 @@
 import { Request, Response } from 'express';
-import ClubService from './ListClubService';
+import ListClubUseCase from './ListClubUseCase';
 
-class ClubController {
-  static async handle(req: Request, res: Response) {
-    const result = await ClubService.execute();
+class ListClubController {
+  constructor(
+    private listClubUseCase: ListClubUseCase,
+  ) {}
+
+  async handle(_req: Request, res: Response): Promise<Response> {
+    const result = await this.listClubUseCase.execute();
 
     return res.status(200).json(result);
   }
 }
 
-export default ClubController;
+export default ListClubController;
